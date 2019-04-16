@@ -20,7 +20,7 @@ public class LambdaExample {
         new Thread( () -> System.out.println("In Java8, Lambda expression rocks !!") ).start();
     }
 
-    public static void useLambdaForIteraction(){
+    public static void useLambdaForIteration(){
         List<String> features = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API");
         features.forEach(System.out::println );
         //or
