@@ -32,6 +32,7 @@ public class LambdaExample {
     public static void usePredicates() {
         System.out.println("###### usePredicates ");
         List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp", "JavaScript");
+        //java.util.function.Predicate supports and(), or() and xor()
         Predicate<String> startsWithJ = (n) -> n.startsWith("J");
         Predicate<String> moreThanfourLetterLong = (n) -> n.length() > 4;
         Predicate<String> scriptLanguage = (n) -> n.contains("Script");
