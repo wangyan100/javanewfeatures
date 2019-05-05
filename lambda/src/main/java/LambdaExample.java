@@ -1,8 +1,8 @@
+
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Calendar;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -14,17 +14,37 @@ public class LambdaExample {
 
         useReduceForMap();
 
+        Greeting greeting = useLambdaForInterface2();
+
+        greeting.sayHello("Tom");
     }
 
-    public static void useLambdaForInterface(){
-        new Thread( () -> System.out.println("In Java8, Lambda expression rocks !!") ).start();
+    public static void useLambdaForInterface1() {
+        new Thread(() -> System.out.println("In Java8, Lambda expression rocks !!")).start();
     }
 
-    public static void useLambdaForIteration(){
+    public static Greeting useLambdaForInterface2() {
+        return (name) -> {
+            Calendar c = Calendar.getInstance();
+            int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+            if (timeOfDay >= 0 && timeOfDay < 12) {
+                System.out.println("Good Morning , " + name);
+            } else if (timeOfDay >= 12 && timeOfDay < 16) {
+                System.out.println("Good Afternoon , " + name);
+            } else if (timeOfDay >= 16 && timeOfDay < 21) {
+                System.out.println("Good Evening , " + name);
+            } else if (timeOfDay >= 21 && timeOfDay < 24) {
+                System.out.println("Good Night , " + name);
+            }
+        };
+    }
+
+    public static void useLambdaForIteration() {
         List<String> features = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API");
-        features.forEach(System.out::println );
+        features.forEach(System.out::println);
         //or
-        features.forEach(n-> {
+        features.forEach(n -> {
             System.out.println(n);
         });
     }
@@ -55,38 +75,38 @@ public class LambdaExample {
     }
 
     // Use Filter to create a Sub-Collection
-    public static void useFiltertoCreateSubList(){
+    public static void useFiltertoCreateSubList() {
         // a collect original with 5 langauges
         // use filter to filter out language which less then 4 chars
         // the rest language will be put at a sub Collection
         List<String> languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
-        List<String> filtered = languages.stream().filter(x -> x.length()> 4).collect(Collectors.toList());
+        List<String> filtered = languages.stream().filter(x -> x.length() > 4).collect(Collectors.toList());
         System.out.printf("Original List : %s, filtered list : %s %n", languages, filtered);
     }
 
     //Apply Operation on List example1
-    public static void applyOperation1(){
+    public static void applyOperation1() {
 
         //Use map to apply operation on each element in list
         // make element uppercase
         // use Collects to join elements as String
-        List<String> G7 = Arrays.asList("USA", "Japan", "France", "Germany", "Italy","U.K.","Canada");
+        List<String> G7 = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "U.K.", "Canada");
         String G7Countries = G7.stream().map(x -> x.toUpperCase()).collect(Collectors.joining(", "));
         System.out.println(G7Countries);
     }
 
     //Apply Operation on List example2
-    public static void applyOperation2(){
+    public static void applyOperation2() {
 
         //Use map to apply square operation on each element in list
         // use distinct to remove duplicated result
         // use Collects to create a subList
         List<Integer> numbers = Arrays.asList(9, 10, 3, 4, 7, 3, 4);
-        List<Integer> distinct = numbers.stream().map( i ->i*i).distinct().collect(Collectors.toList());
+        List<Integer> distinct = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
         System.out.printf("Original List : %s, Square Without duplicates : %s %n", numbers, distinct);
     }
 
-    public static  void useSummaryStatistics(){
+    public static void useSummaryStatistics() {
         List<Integer> primes = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
         IntSummaryStatistics stats = primes.stream().mapToInt((x) -> x).summaryStatistics();
         System.out.println("Highest prime number in List : " + stats.getMax());
@@ -95,4 +115,5 @@ public class LambdaExample {
         System.out.println("Average of all prime numbers : " + stats.getAverage());
 
     }
+
 }

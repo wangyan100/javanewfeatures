@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+    id 'application'
 }
+
+mainClassName = "LambdaExample"
 
 group 'org.yan'
 version '1.0-SNAPSHOT'
